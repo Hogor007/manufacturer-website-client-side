@@ -1,0 +1,31 @@
+.tool-img{
+    width: 250px;
+    height: 200px;
+}
+
+.tool-card{
+    position: relative;
+}
+
+.confirm-order-button{
+    position: absolute;
+ 
+    bottom: 0;
+    margin-left: calc(50% - 95px);
+    margin-bottom: 30px;
+    
+}
+
+.tool-header, .tool-body > p, small{
+    font-family: "Ubuntu", sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+    .confirm-order-button{
+        position: absolute;
+        bottom: 0;
+        margin-left: calc(50% - 95px);
+        margin-bottom: 30px;
+    }
+}
+    
