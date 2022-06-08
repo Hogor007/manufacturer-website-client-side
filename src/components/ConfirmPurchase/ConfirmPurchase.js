@@ -30,7 +30,7 @@ const ConfirmPurchase = () => {
   useEffect(() => {
     setReload(true);
     axiosPrivate
-      .get(`http://localhost:5000/tools/${params.id}`, {
+      .get(`https://enigmatic-beyond-17898.herokuapp.com/tools/${params.id}`, {
         headers: {
           email: authUser?.email,
         },
@@ -97,7 +97,7 @@ const ConfirmPurchase = () => {
   const handleSubmit = () => {
     if (address && phoneNumber) {
       axiosPrivate
-        .post("http://localhost:5000/orders", userOrder, {
+        .post("https://enigmatic-beyond-17898.herokuapp.com/orders", userOrder, {
           headers: {
             email: authUser?.email,
           },

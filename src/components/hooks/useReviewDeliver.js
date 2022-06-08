@@ -19,7 +19,7 @@ const useReviewDeliver = (reloadModal) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `http://localhost:5000/orders/${authUser?.email}/true`,
+      `https://enigmatic-beyond-17898.herokuapp.com/orders/${authUser?.email}/true`,
       {
         headers: {
           "Content-Type": "application/json",

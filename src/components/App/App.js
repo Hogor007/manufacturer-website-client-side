@@ -44,7 +44,7 @@ function App() {
     if (authUser) {
       axiosPrivate
         .put(
-          `http://localhost:5000/user/${authUser?.email}`,
+          `https://enigmatic-beyond-17898.herokuapp.com/user/${authUser?.email}`,
           { email: authUser?.email },
           {
             headers: {

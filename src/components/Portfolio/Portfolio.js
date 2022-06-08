@@ -12,16 +12,12 @@ const Portfolio = () => {
         <div className="d-lg-flex ">
           <div>
             <h1 className="my-name">
-              Hello, I’m <span>Saidur</span>
+              Hello, I’m <span>Ashraful</span>
               <br />
               <span className="title">Passionate Web Developer</span>
             </h1>
             <p className="my-intro">
-              HI. I am Saidur, 14 y/o. I'm from Bangladesh. I am a Jr. full
-              stack web developer. Currently working at Sofwid as a Jr. Front
-              end web developer intern (remotely). And also I am a moderator at
-              Programming Hero from 2 Years. I love learning new technologies
-              every day. Currently I am learning the skill of web development.
+              HI. I am Ashraful, 17 y/o from Bangladesh. Aiming to become a Junior Stack Web Developer. Also working at Hypixel for 2 years as a senior moderator. I love learning new technologies every day. Currently I am learning the skill of web development.
             </p>
             <a
               target="_blank"

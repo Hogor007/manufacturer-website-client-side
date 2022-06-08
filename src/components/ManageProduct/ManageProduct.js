@@ -39,7 +39,7 @@ const ManageProduct = () => {
     if (proceed) {
       setReload(true);
       fetch(
-        `http://localhost:5000/product/${deleteOrderId}`,
+        `https://enigmatic-beyond-17898.herokuapp.com/product/${deleteOrderId}`,
         {
           method: "DELETE",
           headers: {

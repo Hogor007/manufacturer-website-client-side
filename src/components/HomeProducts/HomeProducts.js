@@ -14,7 +14,7 @@ const HomeProducts = () => {
   const navigate = useNavigate();
 
   const { isLoading, data: tools } = useQuery("toolsData", () =>
-    fetch("http://localhost:5000/tools", {
+    fetch("https://enigmatic-beyond-17898.herokuapp.com/tools", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -27,7 +27,7 @@ const HomeProducts = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${authUser?.email}`, {
+    fetch(`https://enigmatic-beyond-17898.herokuapp.com/user/${authUser?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

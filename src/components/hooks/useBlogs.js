@@ -8,7 +8,7 @@ const useBlogs = () => {
   // useEffect Hook to Fetch blogs data from server api
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:5000/blogs", {
+    fetch("https://enigmatic-beyond-17898.herokuapp.com/blogs", {
       method: "GET",
       headers: {
         "content-type": "application/json",

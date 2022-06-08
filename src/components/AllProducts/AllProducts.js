@@ -19,7 +19,7 @@ const AllProducts = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${authUser?.email}`, {
+    fetch(`https://enigmatic-beyond-17898.herokuapp.com/user/${authUser?.email}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

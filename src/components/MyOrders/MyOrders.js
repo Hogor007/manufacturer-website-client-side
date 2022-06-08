@@ -31,7 +31,7 @@ const MyOrders = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `http://localhost:5000/orders/${authUser?.email}`,
+      `https://enigmatic-beyond-17898.herokuapp.com/orders/${authUser?.email}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const MyOrders = () => {
       setReload(true);
       axiosPrivate
         .delete(
-          `http://localhost:5000/orders/${cancelOrderId}`,
+          `https://enigmatic-beyond-17898.herokuapp.com/orders/${cancelOrderId}`,
           {
             headers: {
               "Content-Type": "application/json",

@@ -1,21 +1,27 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Button, Table } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import axiosPrivate from "../../api/axiosPrivate";
-import auth from "../../firebase.init";
+import auth from "../firebase.init";
 import useAllOrders from "../hooks/useAllOrders";
 import useTools from "../hooks/useTools";
 import Loading from "../Loading/Loading";
+import CancelModal from "./CancelModal";
+import "./ManageOrders.css";
 
 const ManageOrders = () => {
   const [authUser] = useAuthState(auth);
 
   const [reload, setReload] = React.useState(false);
+  const [proceed, setProceed] = React.useState(false);
+  const [boolean, setBoolean] = React.useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
 
   const [allOrders, setAllOrders, isLoading] = useAllOrders(reload);
   const [tools, setTools] = useTools(reload);
 
+  console.log(setTools, setAllOrders);
   const handleDeliver = async (
     id,
     toolName,
@@ -28,7 +34,7 @@ const ManageOrders = () => {
       setReload(true);
       axiosPrivate
         .put(
-          `http://localhost:5000/orders/${id}`,
+          `https://manufacturer-xpart.herokuapp.com/orders/${id}`,
           { isDelivered: true },
           {
             headers: {
@@ -52,7 +58,7 @@ const ManageOrders = () => {
               ).toString(),
             };
             fetch(
-              `http://localhost:5000/product/${requiredTool._id}`,
+              `https://manufacturer-xpart.herokuapp.com/product/${requiredTool._id}`,
               {
                 method: "PUT",
                 headers: {
@@ -76,6 +82,37 @@ const ManageOrders = () => {
     } else {
       toast.error("Order is not paid yet!");
     }
+  };
+  const [cancelOrderId, setCancelOrderId] = React.useState("");
+  useEffect(() => {
+    console.log("data deleted");
+    if (proceed) {
+      setReload(true);
+      axiosPrivate
+        .delete(
+          `https://manufacturer-xpart.herokuapp.com/orders/${cancelOrderId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              email: `${authUser?.email}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          if (data.deletedCount) {
+            toast.success("Order Cancelled Successfully");
+          }
+        });
+      setCancelOrderId("");
+      setProceed(false);
+    }
+  }, [proceed, cancelOrderId, boolean, authUser?.email]);
+
+  const handleCancelOrder = (id) => {
+    console.log(id);
+    setModalShow(true);
+    setCancelOrderId(id);
   };
 
   const reversedOrders = [...allOrders].reverse();
@@ -129,7 +166,7 @@ const ManageOrders = () => {
 
           <td className="text-center ">
             {isPaid ? (
-              <small className="text-primary">
+              <small className="text-success">
                 <strong>Paid</strong>
               </small>
             ) : (
@@ -140,13 +177,20 @@ const ManageOrders = () => {
           </td>
 
           <td>
-            {isDelivered ? (
-              <p className="px-3 py-1 bg-primary text-white rounded-pill">
-                <small>
-                  <strong>Shipped</strong>
-                </small>
-              </p>
-            ) : (
+            {!isPaid ? (
+              <div className="">
+                <div>
+                  <button
+                    onClick={() => {
+                      handleCancelOrder(_id);
+                    }}
+                    className="btn btn-danger d-block mx-auto rounded-pill"
+                  >
+                    <small>Cancel</small>
+                  </button>
+                </div>
+              </div>
+            ) : isPaid && !isDelivered ? (
               <button
                 onClick={() =>
                   handleDeliver(
@@ -161,6 +205,12 @@ const ManageOrders = () => {
               >
                 <small>Deliver</small>
               </button>
+            ) : (
+              <p className=" text-center py-1 bg-success text-white rounded-pill">
+                <small className="shipped">
+                  <strong>Shipped</strong>
+                </small>
+              </p>
             )}
           </td>
         </tr>
@@ -169,12 +219,19 @@ const ManageOrders = () => {
   );
   return (
     <div>
-      <h3 className="text-center text-primary mb-4">Manage The Orders</h3>
+      <h3 className="text-center text-success mb-4">Manage The Orders</h3>
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <div className="container">
-          <Table responsive striped bordered hover size="sm">
+        <div className="container table-height">
+          <Table
+            responsive
+            striped
+            bordered
+            hover
+            size="sm"
+            className="table-order"
+          >
             <thead>
               <tr>
                 <th className="text-center">No.</th>
@@ -193,6 +250,15 @@ const ManageOrders = () => {
           </Table>
         </div>
       )}
+      <CancelModal
+        show={modalShow}
+        setProceed={setProceed}
+        setBoolean={setBoolean}
+        boolean={boolean}
+        onHide={() => {
+          setModalShow(false);
+        }}
+      ></CancelModal>
     </div>
   );
 };

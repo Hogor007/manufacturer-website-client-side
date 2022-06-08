@@ -1,0 +1,17 @@
+/* .table-height{
+    height: 100vh!important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    margin-right: 20px;
+} */
+
+.table-order {
+    table-layout: fixed;
+    width: 180px;
+}
+
+td {
+    word-wrap: break-word;
+}

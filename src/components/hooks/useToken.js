@@ -11,7 +11,7 @@ const useToken = (user) => {
       const email = user?.email;
       if (email) {
         const { data } = await axios.post(
-          "http://localhost:5000/login",
+          "https://enigmatic-beyond-17898.herokuapp.com/login",
           {
             email,
           }

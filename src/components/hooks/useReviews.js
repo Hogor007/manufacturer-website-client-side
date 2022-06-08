@@ -18,7 +18,7 @@ const useReviews = () => {
   // React Hook for Fetching All Books From The Server API
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://enigmatic-beyond-17898.herokuapp.com/reviews", {
       headers: {
         "Content-Type": "application/json",
         email: `${authUser?.email}`,
